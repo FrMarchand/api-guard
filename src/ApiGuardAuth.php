@@ -10,6 +10,7 @@ class ApiGuardAuth
 {
 
     protected $auth;
+    protected $user;
 
     public function __construct(Auth $auth)
     {
@@ -24,11 +25,9 @@ class ApiGuardAuth
      */
     public function authenticate(ApiKeyRepository $apiKey)
     {
-        if ( ! $this->auth->byId($apiKey->user_id)) {
-            return false;
-        }
-
-        return $this->getUser();
+        $apiable = $apiKey->apiable;
+        $this->user = $apiable;
+        return $this->user;
     }
 
     /**
@@ -52,7 +51,6 @@ class ApiGuardAuth
      */
     public function getUser()
     {
-        return $this->auth->user();
+        return $this->user;
     }
-
 }

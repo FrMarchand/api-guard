@@ -8,5 +8,7 @@ class ApiKey extends ApiKeyRepository
 {
 
     //
-
+    public function apiable(){
+        return $this->morphTo();
+    }
 }

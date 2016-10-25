@@ -16,13 +16,6 @@ class ApiGuardController extends Controller
     public $response;
 
     /**
-     * The authenticated user
-     *
-     * @var
-     */
-    public $user;
-
-    /**
      * @var array
      */
     protected $apiMethods;
@@ -34,10 +27,11 @@ class ApiGuardController extends Controller
         // Launch middleware
         $this->middleware('apiguard:' . $serializedApiMethods);
 
-        // Attempt to get an authenticated user.
-        $this->user = ApiGuardAuth::getUser();
-
         $this->response = ApiResponseBuilder::build();
+    }
+
+    public function getUser(){
+        return ApiGuardAuth::getUser();
     }
 
 }

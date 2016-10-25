@@ -22,7 +22,8 @@ abstract class ApiKeyRepository extends Eloquent
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'user_id',
+        'apiable_id',
+		'apiable_type',
         'key',
         'level',
         'ignore_limits',
@@ -67,10 +68,9 @@ abstract class ApiKeyRepository extends Eloquent
      * @param bool $ignoreLimits
      * @return static
      */
-    public static function make($userId = null, $level = 10, $ignoreLimits = false)
+    public static function make($level = 10, $ignoreLimits = false)
     {
         return self::create([
-            'user_id'       => $userId,
             'key'           => self::generateKey(),
             'level'         => $level,
             'ignore_limits' => $ignoreLimits,
@@ -91,5 +91,4 @@ abstract class ApiKeyRepository extends Eloquent
 
         return false;
     }
-
 }
